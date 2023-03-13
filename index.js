@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
-import http from "http";
+import https from "https";
 import { Server } from "socket.io";
 import { S3Client } from "@aws-sdk/client-s3";
+import fs from 'fs';
 
 import chatRouter from "./Routes/ChatRoutes.js";
 import { oktaAuthRequired } from "./middleware/jwtVerifier.js";
@@ -26,7 +27,17 @@ export const s3 = new S3Client({
 
 const app = express();
 
-const server = http.createServer(app);
+const options ={
+  key: fs.readFileSync('certificate/key.pem'),
+  cert: fs.readFileSync('certificate/cert.pem'),
+  csr: fs.readFileSync('certificate/csr.pem')
+}
+
+const server = https.createServer(options,app);
+
+app.get('/',(req, res)=> {
+  res.json('hello')
+})
 
 const io = new Server(server, {
   cors: {
