@@ -28,9 +28,9 @@ export const s3 = new S3Client({
 const app = express();
 
 const options ={
-  key: fs.readFileSync('certificate/key.pem'),
-  cert: fs.readFileSync('certificate/cert.pem'),
-  csr: fs.readFileSync('certificate/csr.pem')
+  key: fs.readFileSync('Certificate/key.pem'),
+  cert: fs.readFileSync('Certificate/cert.pem'),
+  csr: fs.readFileSync('Certificate/csr.pem')
 }
 
 const server = https.createServer(options,app);
