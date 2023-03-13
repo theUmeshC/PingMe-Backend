@@ -41,7 +41,7 @@ app.get('/',(req, res)=> {
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN,
+    origin: 'https://pingmefrontend.web.app/',
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
